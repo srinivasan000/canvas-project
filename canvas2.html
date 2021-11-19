@@ -1,0 +1,67 @@
+<!Doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+*{
+margin:0;
+padding:0;}
+#can{
+background:#fff;
+}
+</style>
+<body>
+  <canvas id="can"></canvas>
+<script>
+	var can=document.getElementById("can");
+	var ctx=can.getContext("2d");
+	can.width=innerWidth;
+	can.height=innerHeight;
+	
+	onresize=function(){
+		can.width=innerWidth;
+	    can.height=innerHeight;
+	}
+
+ animate();
+ var x=Math.floor(Math.random()*innerWidth);
+ var y=Math.floor(Math.random()*innerHeight);
+ var radius=10; 
+ var dx=(Math.random()-0.5)*8;
+ var dy=(Math.random()-0.5)*8;
+function animate(){
+    var r=Math.floor(Math.random()*255);
+     var g=Math.floor(Math.random()*255);
+    var b=Math.floor(Math.random()*255);
+    requestAnimationFrame(animate);
+    ctx.beginPath();
+    ctx.fillStyle="rgba("+r+","+g+","+b+")";
+  // ctx.clearRect(0,0,innerWidth,innerHeight);
+    ctx.arc(x,y,radius,0,360);
+    ctx.fill();
+    if(x+20 >=innerWidth || x <=20 ){
+        dx=-dx;
+    }
+    if(y+20 >=innerHeight || y <=20 ){
+        dy=-dy;}
+    x=x+dx;
+    y=y+dy;
+
+ } 
+ addEventListener("mousemove",a);
+ function a(e){
+    ctx.beginPath();
+    ctx.fillStyle="red";
+    mx=e.clientX;
+    my=e.clientY;
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    ctx.arc(mx ,my,20,0,360);
+    ctx.fill();
+    ctx.closePath();
+    x=mx;
+    y=my;
+ }
+
+</script>
+</body>
+</html>

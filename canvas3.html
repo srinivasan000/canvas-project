@@ -1,0 +1,73 @@
+<!Doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+*{
+margin:0;
+padding:0;}
+#can{
+background:#fff;
+}
+#input{
+    position: fixed;
+}
+</style>
+<body>
+    <div id="input">
+        <br>
+    <input type="color" oninput="color()" value="#000" id="color" ><br>
+    <input type="range" min="0" max="50" value="5" id="range" oninput="color()"><b id="value">5</b>
+
+    </div>
+    <canvas id="can"></canvas>
+<script>
+    var can=document.querySelector("canvas");
+    var ctx=can.getContext("2d");
+    can.width=window.innerWidth;
+    can.height=window.innerHeight;
+    onload=function(){
+
+
+    onresize=function(){
+        can.width=window.innerWidth;
+        can.height=window.innerHeight;
+    }
+    }
+
+var painting=false;
+addEventListener("mouseup",end);
+addEventListener("mousedown",start);
+addEventListener("mousemove",draw); 
+var niram="#000";
+var w=5;
+function start(){
+ painting=true;
+}
+
+function end(){
+painting=false;
+ctx.beginPath();
+}
+
+function color(){
+    niram=document.getElementById("color").value;
+    w=document.getElementById("range").value;
+    document.getElementById("value").innerHTML=w;
+}
+
+function draw(e){
+    if(!painting) return;
+    ctx.lineWidth=w;
+    ctx.lineCap="round";
+    ctx.strokeStyle=niram;
+    ctx.lineTo(e.clientX,e.clientY);
+    ctx.moveTo(e.clientX,e.clientY);
+    ctx.stroke();
+    ctx.closePath();
+
+}
+
+</script>
+</body>
+</html>
